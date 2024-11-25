@@ -43,6 +43,56 @@ def load_excavator_swl_data(swl_csv):
     swl_data['class'] = pd.to_numeric(swl_data['class'], errors='coerce')
     return swl_data
 
+def generate_html_table(data):
+    html = """
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Old Bucket</th>
+                <th>New Bucket</th>
+            </tr>
+        </thead>
+        <tbody>
+    """
+    # Add rows to the table
+    for i in range(len(data['Description'])):
+        html += f"""
+        <tr>
+            <td>{data['Description'][i]}</td>
+            <td>{data['Old Bucket'][i]}</td>
+            <td>{data['New Bucket'][i]}</td>
+        </tr>
+        """
+    html += """
+        </tbody>
+    </table>
+    """
+    return html
+
 # Load the data
 dump_truck_data = load_dump_truck_data(dump_truck_csv)
 swl_data = load_excavator_swl_data(swl_csv)
@@ -350,10 +400,12 @@ if calculate_button:
         }
             
             df = pd.DataFrame(data)
+
             
             if df is not None:
                 st.title('Bucket Sizing and Productivity Calculator')
-                st.dataframe(df)
+                html_table = generate_html_table(data)
+                st.markdown(html_table, unsafe_allow_html=True)
                 if dump_truck_payload_new != dump_truck_payload:
                     st.write(f"*Dump Truck fill factor of {(100*dump_truck_payload_new/dump_truck_payload):.1f}% applied for XMOR® Bucket pass matching.")
                 if dump_truck_payload_old != dump_truck_payload:
