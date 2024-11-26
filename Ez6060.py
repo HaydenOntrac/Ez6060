@@ -43,8 +43,8 @@ def load_excavator_swl_data(swl_csv):
     swl_data['class'] = pd.to_numeric(swl_data['class'], errors='coerce')
     return swl_data
 
-def generate_static_table():
-    return """
+def generate_html_table(data):
+    html = """
     <style>
         table {
             width: 100%;
@@ -77,25 +77,23 @@ def generate_static_table():
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Capacity (m³)</td>
-                <td>2.5</td>
-                <td>4.0</td>
-            </tr>
-            <tr>
-                <td>Material Density (kg/m³)</td>
-                <td>1500</td>
-                <td>1500</td>
-            </tr>
-            <tr>
-                <td>Bucket Payload (kg)</td>
-                <td>3750</td>
-                <td>5955</td>
-            </tr>
+    """
+    # Add rows to the table
+    for i in range(len(data['Description'])):
+        html += f"""
+        <tr>
+            <td>{data['Description'][i]}</td>
+            <td>{data['Old Bucket'][i]}</td>
+            <td>{data['New Bucket'][i]}</td>
+        </tr>
+        """
+    html += """
         </tbody>
     </table>
     """
-st.markdown(generate_static_table(), unsafe_allow_html=True)
+    return html
+st.markdown(generate_html_table(data), unsafe_allow_html=True)
+
 
 # Load the data
 dump_truck_data = load_dump_truck_data(dump_truck_csv)
@@ -404,7 +402,7 @@ if calculate_button:
         }
             
             df = pd.DataFrame(data)
-            st.markdown(generate_static_table(), unsafe_allow_html=True)
+            st.markdown(generate_html_table(data), unsafe_allow_html=True)
 
 
             
