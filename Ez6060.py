@@ -87,7 +87,7 @@ def generate_html_table(data):
     
     # Loop through each category and collect relevant data
     for category in categories:
-        # Create the HTML table for this category
+        # Start the table HTML
         table_html = f"<table>"
         
         # Add the subheading row before the headers
@@ -105,7 +105,7 @@ def generate_html_table(data):
             table_html += f"<th>{header}</th>"
         table_html += "</tr></thead><tbody>"
         
-        # Now loop through the data and add rows, but only for the current category
+        # Now loop through the data and add rows for the current category
         category_found = False
         for i in range(len(data[headers[0]])):
             description = data['Description'][i]
