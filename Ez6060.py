@@ -88,16 +88,36 @@ def generate_html_table(data):
     # Determine the number of rows
     num_rows = len(data[headers[0]])
     
-    # Loop through all rows in the data
+    # Iterate through all rows and add the necessary content
     for i in range(num_rows):
         description = data['Description'][i]
 
         # Check if the current row is a subheading
-        if description in ["Side-By-Side Bucket Comparison", 
-                           "Loadout Productivity & Truck Pass Simulation", 
-                           "1000 Swings Side-By-Side Simulation", 
-                           "10% Improved Cycle Time Simulation"]:
-            # Merge all columns for the subheading row
+        if description == "Side-By-Side Bucket Comparison":
+            html += f"""
+            <tr>
+                <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
+                    {description}
+                </td>
+            </tr>
+            """
+        elif description == "Loadout Productivity & Truck Pass Simulation":
+            html += f"""
+            <tr>
+                <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
+                    {description}
+                </td>
+            </tr>
+            """
+        elif description == "1000 Swings Side-By-Side Simulation":
+            html += f"""
+            <tr>
+                <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
+                    {description}
+                </td>
+            </tr>
+            """
+        elif description == "10% Improved Cycle Time Simulation":
             html += f"""
             <tr>
                 <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
@@ -106,6 +126,7 @@ def generate_html_table(data):
             </tr>
             """
         else:
+            # For other rows, add them normally
             html += "<tr>"
             for header in headers:
                 html += f"<td>{data[header][i]}</td>"
@@ -116,6 +137,7 @@ def generate_html_table(data):
     </table>
     """
     return html
+
 
 
 
