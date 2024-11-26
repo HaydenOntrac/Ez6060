@@ -404,7 +404,7 @@ if calculate_button:
         }
             
             df = pd.DataFrame(data)
-            st.markdown(generate_html_table(data), unsafe_allow_html=True)
+            st.markdown(generate_static_table(), unsafe_allow_html=True)
 
 
             
