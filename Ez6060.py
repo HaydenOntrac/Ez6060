@@ -107,11 +107,14 @@ def generate_html_table(data):
             </tr>
             """
         else:
-            # For data rows, add them normally
+            # For data rows, add them normally, avoiding empty last columns
             html += "<tr>"
             for header in headers:
-                value = data[header][i] if data[header][i] != "-" else ""
-                html += f"<td>{value}</td>"
+                value = data[header][i]
+                
+                # Only include a <td> if the value is not empty
+                if value != "-":
+                    html += f"<td>{value}</td>"
             html += "</tr>"
     
     html += """
