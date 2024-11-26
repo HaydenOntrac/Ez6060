@@ -43,11 +43,11 @@ def load_excavator_swl_data(swl_csv):
     swl_data['class'] = pd.to_numeric(swl_data['class'], errors='coerce')
     return swl_data
 
-def generate_html_table(data):
+def generate_html_tables(data):
     # Extract headers dynamically from the keys of the data dictionary
     headers = list(data.keys())
     
-    # Start the HTML with table styles and header row
+    # Start the HTML with table styles
     html = """
     <style>
         table {
@@ -72,47 +72,52 @@ def generate_html_table(data):
             background-color: #f1f1f1;
         }
     </style>
-    <table>
-        <thead>
-            <tr>
     """
     
-    # Add table headers dynamically
-    for header in headers:
-        html += f"<th>{header}</th>"
+    # Define subheading categories
+    categories = [
+        "Side-By-Side Bucket Comparison",
+        "Loadout Productivity & Truck Pass Simulation",
+        "1000 Swings Side-By-Side Simulation",
+        "10% Improved Cycle Time Simulation"
+    ]
     
-    html += """
-            </tr>
-        </thead>
-        <tbody>
-    """
+    # Split the data into four parts based on the categories
+    tables_data = {category: {header: [] for header in headers} for category in categories}
     
-    # Determine the number of rows
-    num_rows = len(data[headers[0]])
+    # Loop through data and assign rows to the respective categories
+    for i in range(len(data[headers[0]])):
+        description = data['Description'][i]
+        for category in categories:
+            if description == category:
+                for header in headers:
+                    tables_data[category][header].append(data[header][i])
     
-    # Loop through all rows in the data
-    for i in range(num_rows):
-        # Check if the current row is a subheading
-        if data['Description'][i] in ["Loadout Productivity & Truck Pass Simulation", 
-                                      "1000 Swings Side-By-Side Simulation", 
-                                      "10% Improved Cycle Time Simulation"]:
-            html += f"""
-            <tr>
-                <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
-                    {data['Description'][i]}
-                </td>
-            </tr>
-            """
-        else:
+    # Generate the HTML for each of the four tables
+    for category in categories:
+        html += f"<h2>{category}</h2>"  # Add the category as a header above each table
+        html += "<table><thead><tr>"
+        
+        # Add table headers dynamically
+        for header in headers:
+            html += f"<th>{header}</th>"
+        html += "</tr></thead><tbody>"
+        
+        # Loop through all rows in the data for this category
+        num_rows = len(tables_data[category][headers[0]])
+        for i in range(num_rows):
             html += "<tr>"
             for header in headers:
-                html += f"<td>{data[header][i]}</td>"
+                value = tables_data[category][header][i]
+                # Check if the value is empty or invalid, and handle it accordingly
+                if value != "-":
+                    html += f"<td>{value}</td>"
+                else:
+                    html += "<td></td>"
             html += "</tr>"
+        
+        html += "</tbody></table><br>"  # Add a line break between tables
     
-    html += """
-        </tbody>
-    </table>
-    """
     return html
 
 
