@@ -47,7 +47,7 @@ def generate_html_table(data):
     # Extract headers dynamically from the keys of the data dictionary
     headers = list(data.keys())
     
-    # Start the HTML with table styles
+    # Start the HTML with table styles and header row
     html = """
     <style>
         table {
@@ -72,62 +72,35 @@ def generate_html_table(data):
             background-color: #f1f1f1;
         }
     </style>
+    <table>
+        <thead>
+            <tr>
+    """
+    # Add table headers dynamically
+    for header in headers:
+        html += f"<th>{header}</th>"
+    
+    html += """
+            </tr>
+        </thead>
+        <tbody>
     """
     
-    # Define subheading categories
-    categories = [
-        "Side-By-Side Bucket Comparison",
-        "Loadout Productivity & Truck Pass Simulation",
-        "1000 Swings Side-By-Side Simulation",
-        "10% Improved Cycle Time Simulation"
-    ]
+    # Determine the number of rows
+    num_rows = len(data[headers[0]])
     
-    # Initialize the tables to be created (empty)
-    tables_data = []
-    
-    # Loop through each category and collect relevant data
-    for category in categories:
-        # Create the HTML table for this category
-        table_html = f"<table><thead><tr>"
-        
-        # Add table headers dynamically
+    # Add rows dynamically
+    for i in range(num_rows):
+        html += "<tr>"
         for header in headers:
-            table_html += f"<th>{header}</th>"
-        table_html += "</tr></thead><tbody>"
-        
-        # Now loop through the data and add rows, but only for the current category
-        category_found = False
-        for i in range(len(data[headers[0]])):
-            description = data['Description'][i]
-            
-            # Add the subheading row when we encounter the correct category
-            if description == category:
-                table_html += f"""
-                <tr>
-                    <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
-                        {category}
-                    </td>
-                </tr>
-                """
-                category_found = True
-            elif category_found and (description != category and description in categories):
-                # Once we've found the category, stop adding rows once we reach a new category
-                break
-            elif category_found and description != category:
-                # If we're in the correct category, add data rows
-                table_html += "<tr>"
-                for header in headers:
-                    table_html += f"<td>{data[header][i]}</td>"
-                table_html += "</tr>"
-        
-        table_html += "</tbody></table><br>"  # Close the table and add a line break
-        
-        # Append the table HTML to the tables_data list
-        tables_data.append(table_html)
+            html += f"<td>{data[header][i]}</td>"
+        html += "</tr>"
     
-    # Combine all tables and return the result
-    return "".join(tables_data)
-
+    html += """
+        </tbody>
+    </table>
+    """
+    return html
 
 # Load the data
 dump_truck_data = load_dump_truck_data(dump_truck_csv)
