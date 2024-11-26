@@ -50,12 +50,11 @@ def generate_html_table(data):
     # Start the HTML with table styles
     html = """
     <style>
-        /* Container for all tables to ensure they align */
         .tables-container {
-            width: 100%; /* Make sure the container takes the full width */
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
+            gap: 20px; /* Add space between tables */
         }
         
         table {
@@ -148,6 +147,7 @@ def generate_html_table(data):
     
     # Wrap all the tables inside a container div
     return f"<div class='tables-container'>{''.join(tables_data)}</div>"
+
 
 # Load the data
 dump_truck_data = load_dump_truck_data(dump_truck_csv)
