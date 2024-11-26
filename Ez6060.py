@@ -44,10 +44,8 @@ def load_excavator_swl_data(swl_csv):
     return swl_data
 
 def generate_html_table(data):
-    # Extract headers dynamically from the keys of the data dictionary
-    headers = list(data.keys())
+    headers = list(data.keys())  # Extract headers dynamically from the keys of the data dictionary
     
-    # Start the HTML with table styles and header row
     html = """
     <style>
         table {
@@ -92,16 +90,18 @@ def generate_html_table(data):
     
     # Loop through all rows in the data
     for i in range(num_rows):
+        description = data['Description'][i]
+
         # Check if the current row is a subheading
-        if data['Description'][i] in ["Side-By-Side Bucket Comparison", 
-                                      "Loadout Productivity & Truck Pass Simulation", 
-                                      "1000 Swings Side-By-Side Simulation", 
-                                      "10% Improved Cycle Time Simulation"]:
+        if description in ["Side-By-Side Bucket Comparison", 
+                           "Loadout Productivity & Truck Pass Simulation", 
+                           "1000 Swings Side-By-Side Simulation", 
+                           "10% Improved Cycle Time Simulation"]:
             # Merge all columns for the subheading row
             html += f"""
             <tr>
                 <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
-                    {data['Description'][i]}
+                    {description}
                 </td>
             </tr>
             """
