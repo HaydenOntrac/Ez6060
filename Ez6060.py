@@ -44,8 +44,10 @@ def load_excavator_swl_data(swl_csv):
     return swl_data
 
 def generate_html_table(data):
-    headers = list(data.keys())  # Extract headers dynamically from the keys of the data dictionary
-
+    # Extract headers dynamically from the keys of the data dictionary
+    headers = list(data.keys())
+    
+    # Start the HTML with table styles and header row
     html = """
     <style>
         table {
@@ -74,7 +76,6 @@ def generate_html_table(data):
         <thead>
             <tr>
     """
-    
     # Add table headers dynamically
     for header in headers:
         html += f"<th>{header}</th>"
@@ -85,47 +86,21 @@ def generate_html_table(data):
         <tbody>
     """
     
-    # Create a list of subheadings
-    subheadings = [
-        "Side-By-Side Bucket Comparison",
-        "Loadout Productivity & Truck Pass Simulation",
-        "1000 Swings Side-By-Side Simulation",
-        "10% Improved Cycle Time Simulation"
-    ]
+    # Determine the number of rows
+    num_rows = len(data[headers[0]])
     
-    # Iterate through the rows
-    for i in range(len(data['Description'])):
-        description = data['Description'][i]
-        
-        # Check if the description matches a subheading
-        if description in subheadings:
-            html += f"""
-            <tr>
-                <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
-                    {description}
-                </td>
-            </tr>
-            """
-        else:
-            # For data rows, add them normally, avoiding empty last columns
-            html += "<tr>"
-            for header in headers:
-                value = data[header][i]
-                
-                # Only include a <td> if the value is not empty
-                if value != "-":
-                    html += f"<td>{value}</td>"
-            html += "</tr>"
+    # Add rows dynamically
+    for i in range(num_rows):
+        html += "<tr>"
+        for header in headers:
+            html += f"<td>{data[header][i]}</td>"
+        html += "</tr>"
     
     html += """
         </tbody>
     </table>
     """
-    
     return html
-
-
-
 
 # Load the data
 dump_truck_data = load_dump_truck_data(dump_truck_csv)
