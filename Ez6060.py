@@ -92,7 +92,7 @@ def generate_html_table(data):
         "1000 Swings Side-By-Side Simulation",
         "10% Improved Cycle Time Simulation"
     ]
-
+    
     # Iterate through the rows
     for i in range(len(data['Description'])):
         description = data['Description'][i]
@@ -107,10 +107,11 @@ def generate_html_table(data):
             </tr>
             """
         else:
-            # For other rows, add them normally
+            # For data rows, add them normally
             html += "<tr>"
             for header in headers:
-                html += f"<td>{data[header][i]}</td>"
+                value = data[header][i] if data[header][i] != "-" else ""
+                html += f"<td>{value}</td>"
             html += "</tr>"
     
     html += """
@@ -119,6 +120,7 @@ def generate_html_table(data):
     """
     
     return html
+
 
 
 
