@@ -43,7 +43,7 @@ def load_excavator_swl_data(swl_csv):
     swl_data['class'] = pd.to_numeric(swl_data['class'], errors='coerce')
     return swl_data
 
-def generate_html_table(data):
+def generate_html_tables(data):
     # Extract headers dynamically from the keys of the data dictionary
     headers = list(data.keys())
     
@@ -88,9 +88,19 @@ def generate_html_table(data):
     # Loop through each category and collect relevant data
     for category in categories:
         # Create the HTML table for this category
-        table_html = f"<table><thead><tr>"
+        table_html = f"<table>"
         
-        # Add table headers dynamically
+        # Add the subheading row before the headers
+        table_html += f"""
+        <tr>
+            <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
+                {category}
+            </td>
+        </tr>
+        """
+        
+        # Add table headers dynamically after the subheading
+        table_html += "<thead><tr>"
         for header in headers:
             table_html += f"<th>{header}</th>"
         table_html += "</tr></thead><tbody>"
@@ -100,15 +110,8 @@ def generate_html_table(data):
         for i in range(len(data[headers[0]])):
             description = data['Description'][i]
             
-            # Add the subheading row when we encounter the correct category
+            # Once we encounter the correct category, start adding rows
             if description == category:
-                table_html += f"""
-                <tr>
-                    <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
-                        {category}
-                    </td>
-                </tr>
-                """
                 category_found = True
             elif category_found and (description != category and description in categories):
                 # Once we've found the category, stop adding rows once we reach a new category
@@ -127,7 +130,6 @@ def generate_html_table(data):
     
     # Combine all tables and return the result
     return "".join(tables_data)
-
 
 
 # Load the data
