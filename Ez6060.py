@@ -92,19 +92,13 @@ def generate_html_table(data):
     
     # Loop through all rows in the data
     for i in range(num_rows):
-        # Check if the current row is a subheading
         description = data['Description'][i]
-        if description == "Side-By-Side Bucket Comparison":
-            html += f"""
-            <tr>
-                <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
-                    {description}
-                </td>
-            </tr>
-            """
-        elif description in ["Loadout Productivity & Truck Pass Simulation", 
-                             "1000 Swings Side-By-Side Simulation", 
-                             "10% Improved Cycle Time Simulation"]:
+        
+        # If the current row is a subheading, span all columns
+        if description in ["Side-By-Side Bucket Comparison", 
+                           "Loadout Productivity & Truck Pass Simulation", 
+                           "1000 Swings Side-By-Side Simulation", 
+                           "10% Improved Cycle Time Simulation"]:
             html += f"""
             <tr>
                 <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
@@ -113,13 +107,16 @@ def generate_html_table(data):
             </tr>
             """
         else:
+            # Otherwise, add the data rows
             html += "<tr>"
             for header in headers:
                 value = data[header][i]
                 
-                # Only include a <td> if the value is not empty
+                # Check if the value is empty or invalid, and handle it accordingly
                 if value != "-":
                     html += f"<td>{value}</td>"
+                else:
+                    html += "<td></td>"
             html += "</tr>"
     
     html += """
@@ -127,6 +124,7 @@ def generate_html_table(data):
     </table>
     """
     return html
+
 
 
 # Load the data
