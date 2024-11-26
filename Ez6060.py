@@ -57,6 +57,7 @@ def generate_html_table(data):
             margin: 25px 0;
             font-size: 18px;
             text-align: left;
+            max-width: 100%; /* Prevents the tables from exceeding container width */
         }
         th, td {
             padding: 12px 15px;
@@ -136,9 +137,6 @@ def generate_html_table(data):
     
     # Combine all tables and return the result
     return "".join(tables_data)
-
-
-
 
 # Load the data
 dump_truck_data = load_dump_truck_data(dump_truck_csv)
