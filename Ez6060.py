@@ -90,7 +90,7 @@ def generate_html_table(data):
         # Start the table HTML
         table_html = f"<table>"
         
-        # Add the subheading row before the headers
+        # Add the subheading row first
         table_html += f"""
         <tr>
             <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
@@ -99,13 +99,13 @@ def generate_html_table(data):
         </tr>
         """
         
-        # Add table headers dynamically after the subheading
+        # Add table headers after the subheading
         table_html += "<thead><tr>"
         for header in headers:
             table_html += f"<th>{header}</th>"
         table_html += "</tr></thead><tbody>"
         
-        # Now loop through the data and add rows for the current category
+        # Loop through the data and add rows for the current category
         category_found = False
         for i in range(len(data[headers[0]])):
             description = data['Description'][i]
@@ -113,7 +113,7 @@ def generate_html_table(data):
             # Start adding rows once we encounter the current category
             if description == category:
                 category_found = True
-            elif category_found and (description != category and description in categories):
+            elif category_found and description != category and description in categories:
                 # Stop once a new category is found
                 break
             elif category_found and description != category:
@@ -130,6 +130,7 @@ def generate_html_table(data):
     
     # Combine all tables and return the result
     return "".join(tables_data)
+
 
 
 # Load the data
