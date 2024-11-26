@@ -499,7 +499,7 @@ if calculate_button:
             # Convert each section into a DataFrame
             side_by_side_df = pd.DataFrame(side_by_side_data)
             
-            if df is not None:
+            if side_by_side_df is not None:
                 st.title('Bucket Sizing and Productivity Calculator')
                 st.markdown(generate_html_table(side_by_side_data), unsafe_allow_html=True)
                 st.markdown(generate_html_table(loadout_productivity_data), unsafe_allow_html=True)
