@@ -400,8 +400,8 @@ if calculate_button:
         }
             
             df = pd.DataFrame(data)
-            html_table = generate_html_table(data)
-            st.markdown(html_table, unsafe_allow_html=True)
+            st.markdown(generate_html_table(data), unsafe_allow_html=True)
+
 
             
             if df is not None:
