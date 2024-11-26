@@ -51,7 +51,8 @@ def generate_html_table(data):
     html = """
     <style>
         table {
-            width: 100%;
+            width: 100%; /* Ensures tables take up the full width of the container */
+            table-layout: fixed; /* Ensures columns have equal width */
             border-collapse: collapse;
             margin: 25px 0;
             font-size: 18px;
@@ -60,6 +61,7 @@ def generate_html_table(data):
         th, td {
             padding: 12px 15px;
             border: 1px solid #ddd;
+            word-wrap: break-word; /* Ensures long words break and don't overflow */
         }
         th {
             background-color: #f4f4f4;
