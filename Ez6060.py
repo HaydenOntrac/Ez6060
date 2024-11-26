@@ -87,13 +87,6 @@ def generate_html_table(data):
     
     # Loop through each category and collect relevant data
     for category in categories:
-        category_data = {header: [] for header in headers}
-        for i in range(len(data[headers[0]])):
-            description = data['Description'][i]
-            if description == category:
-                for header in headers:
-                    category_data[header].append(data[header][i])
-        
         # Create the HTML table for this category
         table_html = f"<table><thead><tr>"
         
@@ -102,11 +95,14 @@ def generate_html_table(data):
             table_html += f"<th>{header}</th>"
         table_html += "</tr></thead><tbody>"
         
-        # Loop through all rows in the data for this category
-        num_rows = len(category_data[headers[0]])
-        for i in range(num_rows):
-            # If the current row is a subheading, create a new row with a colspan
-            if category_data['Description'][i] == category:
+        # Now loop through the data and add rows
+        # We loop through the data and check if the "Description" field matches the category
+        category_found = False
+        for i in range(len(data[headers[0]])):
+            description = data['Description'][i]
+            
+            if description == category:
+                # If this is the subheading row, add the subheading inside the table
                 table_html += f"""
                 <tr>
                     <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
@@ -114,21 +110,22 @@ def generate_html_table(data):
                     </td>
                 </tr>
                 """
-            else:
+                category_found = True
+            elif category_found:
+                # Add data rows after the subheading row
                 table_html += "<tr>"
                 for header in headers:
-                    table_html += f"<td>{category_data[header][i]}</td>"
+                    # Ensure the data exists for the header, if not add a blank cell
+                    table_html += f"<td>{data[header][i]}</td>"
                 table_html += "</tr>"
         
-        table_html += "</tbody></table><br>"  # Close the table and add line break
+        table_html += "</tbody></table><br>"  # Close the table and add a line break
         
         # Append the table HTML to the tables_data list
         tables_data.append(table_html)
     
     # Combine all tables and return the result
     return "".join(tables_data)
-
-
 
 
 # Load the data
