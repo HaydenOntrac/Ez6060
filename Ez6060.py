@@ -97,6 +97,7 @@ def generate_html_table(data):
                                       "Loadout Productivity & Truck Pass Simulation", 
                                       "1000 Swings Side-By-Side Simulation", 
                                       "10% Improved Cycle Time Simulation"]:
+            # Merge all columns for the subheading row
             html += f"""
             <tr>
                 <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
