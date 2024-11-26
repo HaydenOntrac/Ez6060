@@ -86,7 +86,7 @@ def generate_html_table(data):
     tables_data = []
     
     # Loop through each category and collect relevant data
-    for category in categories:
+    for idx, category in enumerate(categories):
         # Start the table HTML for the current category
         table_html = f"<table>"
         
@@ -99,11 +99,14 @@ def generate_html_table(data):
         </tr>
         """
         
-        # Add table headers after the subheading
-        table_html += "<thead><tr>"
-        for header in headers:
-            table_html += f"<th>{header}</th>"
-        table_html += "</tr></thead><tbody>"
+        # Add table headers only for the first table (index 0)
+        if idx == 0:
+            table_html += "<thead><tr>"
+            for header in headers:
+                table_html += f"<th>{header}</th>"
+            table_html += "</tr></thead><tbody>"
+        else:
+            table_html += "<tbody>"  # Just add the body for subsequent tables
         
         # Loop through the data and add rows for the current category
         category_found = False
@@ -131,6 +134,7 @@ def generate_html_table(data):
     
     # Combine all tables and return the result
     return "".join(tables_data)
+
 
 
 
