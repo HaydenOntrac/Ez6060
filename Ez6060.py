@@ -76,6 +76,7 @@ def generate_html_table(data):
         <thead>
             <tr>
     """
+    
     # Add table headers dynamically
     for header in headers:
         html += f"<th>{header}</th>"
@@ -89,18 +90,31 @@ def generate_html_table(data):
     # Determine the number of rows
     num_rows = len(data[headers[0]])
     
-    # Add rows dynamically
+    # Loop through all rows in the data
     for i in range(num_rows):
-        html += "<tr>"
-        for header in headers:
-            html += f"<td>{data[header][i]}</td>"
-        html += "</tr>"
+        # Check if the current row is a subheading
+        if data['Description'][i] in ["Loadout Productivity & Truck Pass Simulation", 
+                                      "1000 Swings Side-By-Side Simulation", 
+                                      "10% Improved Cycle Time Simulation"]:
+            html += f"""
+            <tr>
+                <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
+                    {data['Description'][i]}
+                </td>
+            </tr>
+            """
+        else:
+            html += "<tr>"
+            for header in headers:
+                html += f"<td>{data[header][i]}</td>"
+            html += "</tr>"
     
     html += """
         </tbody>
     </table>
     """
     return html
+
 
 # Load the data
 dump_truck_data = load_dump_truck_data(dump_truck_csv)
