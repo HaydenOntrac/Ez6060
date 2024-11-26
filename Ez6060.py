@@ -58,13 +58,12 @@ def generate_html_table(data):
         }
         
         table {
-            width: 48%; /* Make each table take up 48% of the container width */
+            width: 100%; /* Ensure each table takes full width */
             table-layout: fixed; /* Ensures columns have equal width */
             border-collapse: collapse;
-            margin: 25px 0;
             font-size: 18px;
             text-align: left;
-            max-width: 100%; /* Prevents tables from exceeding container width */
+            max-width: 100%; /* Prevent tables from exceeding container width */
         }
         
         th, td {
@@ -85,6 +84,12 @@ def generate_html_table(data):
         tr:hover {
             background-color: #f1f1f1;
         }
+
+        /* Make sure the tables themselves are consistently sized */
+        .table-wrapper {
+            width: 48%; /* Ensure tables stay within 48% of container */
+        }
+
     </style>
     """
     
@@ -102,7 +107,7 @@ def generate_html_table(data):
     # Loop through each category and collect relevant data
     for idx, category in enumerate(categories):
         # Start the table HTML for the current category
-        table_html = f"<table>"
+        table_html = f"<div class='table-wrapper'><table>"
         
         # Add the subheading row (Category) before the headers
         table_html += f"""
@@ -140,7 +145,7 @@ def generate_html_table(data):
                     table_html += f"<td>{data[header][i]}</td>"
                 table_html += "</tr>"
         
-        table_html += "</tbody></table>"  # Close the table
+        table_html += "</tbody></table></div>"  # Close the table and its wrapper
         
         # Append the table HTML to the tables_data list
         tables_data.append(table_html)
