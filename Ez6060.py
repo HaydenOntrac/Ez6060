@@ -93,7 +93,8 @@ def generate_html_table(data):
     # Loop through all rows in the data
     for i in range(num_rows):
         # Check if the current row is a subheading
-        if data['Description'][i] in ["Loadout Productivity & Truck Pass Simulation", 
+        if data['Description'][i] in ["Side-By-Side Bucket Comparison", 
+                                      "Loadout Productivity & Truck Pass Simulation", 
                                       "1000 Swings Side-By-Side Simulation", 
                                       "10% Improved Cycle Time Simulation"]:
             html += f"""
