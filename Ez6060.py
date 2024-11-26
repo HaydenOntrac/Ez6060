@@ -43,7 +43,7 @@ def load_excavator_swl_data(swl_csv):
     swl_data['class'] = pd.to_numeric(swl_data['class'], errors='coerce')
     return swl_data
 
-def generate_html_table(data):
+def generate_html_tables(data):
     # Extract headers dynamically from the keys of the data dictionary
     headers = list(data.keys())
     
@@ -82,43 +82,52 @@ def generate_html_table(data):
         "10% Improved Cycle Time Simulation"
     ]
     
-    # Split the data into four parts based on the categories
-    tables_data = {category: {header: [] for header in headers} for category in categories}
+    # Initialize the tables to be created (empty)
+    tables_data = []
     
-    # Loop through data and assign rows to the respective categories
-    for i in range(len(data[headers[0]])):
-        description = data['Description'][i]
-        for category in categories:
+    # Loop through each category and collect relevant data
+    for category in categories:
+        category_data = {header: [] for header in headers}
+        for i in range(len(data[headers[0]])):
+            description = data['Description'][i]
             if description == category:
                 for header in headers:
-                    tables_data[category][header].append(data[header][i])
-    
-    # Generate the HTML for each of the four tables
-    for category in categories:
-        html += f"<h2>{category}</h2>"  # Add the category as a header above each table
-        html += "<table><thead><tr>"
+                    category_data[header].append(data[header][i])
+        
+        # Create the HTML table for this category
+        table_html = f"<table><thead><tr>"
         
         # Add table headers dynamically
         for header in headers:
-            html += f"<th>{header}</th>"
-        html += "</tr></thead><tbody>"
+            table_html += f"<th>{header}</th>"
+        table_html += "</tr></thead><tbody>"
         
         # Loop through all rows in the data for this category
-        num_rows = len(tables_data[category][headers[0]])
+        num_rows = len(category_data[headers[0]])
         for i in range(num_rows):
-            html += "<tr>"
-            for header in headers:
-                value = tables_data[category][header][i]
-                # Check if the value is empty or invalid, and handle it accordingly
-                if value != "-":
-                    html += f"<td>{value}</td>"
-                else:
-                    html += "<td></td>"
-            html += "</tr>"
+            # If the current row is a subheading, create a new row with a colspan
+            if category_data['Description'][i] == category:
+                table_html += f"""
+                <tr>
+                    <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
+                        {category}
+                    </td>
+                </tr>
+                """
+            else:
+                table_html += "<tr>"
+                for header in headers:
+                    table_html += f"<td>{category_data[header][i]}</td>"
+                table_html += "</tr>"
         
-        html += "</tbody></table><br>"  # Add a line break between tables
+        table_html += "</tbody></table><br>"  # Close the table and add line break
+        
+        # Append the table HTML to the tables_data list
+        tables_data.append(table_html)
     
-    return html
+    # Combine all tables and return the result
+    return "".join(tables_data)
+
 
 
 
