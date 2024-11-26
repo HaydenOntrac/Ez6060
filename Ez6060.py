@@ -45,7 +45,7 @@ def load_excavator_swl_data(swl_csv):
 
 def generate_html_table(data):
     headers = list(data.keys())  # Extract headers dynamically from the keys of the data dictionary
-    
+
     html = """
     <style>
         table {
@@ -85,39 +85,20 @@ def generate_html_table(data):
         <tbody>
     """
     
-    # Determine the number of rows
-    num_rows = len(data[headers[0]])
-    
-    # Iterate through all rows and add the necessary content
-    for i in range(num_rows):
-        description = data['Description'][i]
+    # Create a list of subheadings
+    subheadings = [
+        "Side-By-Side Bucket Comparison",
+        "Loadout Productivity & Truck Pass Simulation",
+        "1000 Swings Side-By-Side Simulation",
+        "10% Improved Cycle Time Simulation"
+    ]
 
-        # Check if the current row is a subheading
-        if description == "Side-By-Side Bucket Comparison":
-            html += f"""
-            <tr>
-                <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
-                    {description}
-                </td>
-            </tr>
-            """
-        elif description == "Loadout Productivity & Truck Pass Simulation":
-            html += f"""
-            <tr>
-                <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
-                    {description}
-                </td>
-            </tr>
-            """
-        elif description == "1000 Swings Side-By-Side Simulation":
-            html += f"""
-            <tr>
-                <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
-                    {description}
-                </td>
-            </tr>
-            """
-        elif description == "10% Improved Cycle Time Simulation":
+    # Iterate through the rows
+    for i in range(len(data['Description'])):
+        description = data['Description'][i]
+        
+        # Check if the description matches a subheading
+        if description in subheadings:
             html += f"""
             <tr>
                 <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
@@ -136,8 +117,8 @@ def generate_html_table(data):
         </tbody>
     </table>
     """
+    
     return html
-
 
 
 
