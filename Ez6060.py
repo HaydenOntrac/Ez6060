@@ -92,7 +92,6 @@ def generate_html_table(data):
     </table>
     """
     return html
-st.markdown(generate_html_table(data), unsafe_allow_html=True)
 
 
 # Load the data
