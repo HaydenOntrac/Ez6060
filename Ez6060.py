@@ -44,6 +44,10 @@ def load_excavator_swl_data(swl_csv):
     return swl_data
 
 def generate_html_table(data):
+    # Extract headers dynamically from the keys of the data dictionary
+    headers = list(data.keys())
+    
+    # Start the HTML with table styles and header row
     html = """
     <style>
         table {
@@ -71,27 +75,33 @@ def generate_html_table(data):
     <table>
         <thead>
             <tr>
-                <th>Description</th>
-                <th>Old Bucket</th>
-                <th>New Bucket</th>
+    """
+    # Add table headers dynamically
+    for header in headers:
+        html += f"<th>{header}</th>"
+    
+    html += """
             </tr>
         </thead>
         <tbody>
     """
-    # Add rows to the table
-    for i in range(len(data['Description'])):
-        html += f"""
-        <tr>
-            <td>{data['Description'][i]}</td>
-            <td>{data['Old Bucket'][i]}</td>
-            <td>{data['New Bucket'][i]}</td>
-        </tr>
-        """
+    
+    # Determine the number of rows
+    num_rows = len(data[headers[0]])
+    
+    # Add rows dynamically
+    for i in range(num_rows):
+        html += "<tr>"
+        for header in headers:
+            html += f"<td>{data[header][i]}</td>"
+        html += "</tr>"
+    
     html += """
         </tbody>
     </table>
     """
     return html
+
 
 
 # Load the data
