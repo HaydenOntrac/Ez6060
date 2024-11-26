@@ -74,7 +74,7 @@ def generate_html_table(data):
     </style>
     """
     
-    # Define subheading categories
+    # Define subheading categories based on what you want
     categories = [
         "Side-By-Side Bucket Comparison",
         "Loadout Productivity & Truck Pass Simulation",
@@ -87,10 +87,10 @@ def generate_html_table(data):
     
     # Loop through each category and collect relevant data
     for category in categories:
-        # Start the table HTML
+        # Start the table HTML for the current category
         table_html = f"<table>"
         
-        # Add the subheading row first
+        # Add the subheading row (Category) before the headers
         table_html += f"""
         <tr>
             <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
@@ -123,7 +123,8 @@ def generate_html_table(data):
                     table_html += f"<td>{data[header][i]}</td>"
                 table_html += "</tr>"
         
-        table_html += "</tbody></table><br>"  # Close the table and add a line break
+        # Close the table and add a line break for separation
+        table_html += "</tbody></table><br>"
         
         # Append the table HTML to the tables_data list
         tables_data.append(table_html)
