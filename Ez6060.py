@@ -43,7 +43,7 @@ def load_excavator_swl_data(swl_csv):
     swl_data['class'] = pd.to_numeric(swl_data['class'], errors='coerce')
     return swl_data
 
-def generate_html_table(data):
+def generate_html_tables(data):
     # Extract headers dynamically from the keys of the data dictionary
     headers = list(data.keys())
     
@@ -95,8 +95,7 @@ def generate_html_table(data):
             table_html += f"<th>{header}</th>"
         table_html += "</tr></thead><tbody>"
         
-        # Now loop through the data and add rows
-        # We loop through the data and check if the "Description" field matches the category
+        # Now loop through the data and add rows, but only for the current category
         category_found = False
         for i in range(len(data[headers[0]])):
             description = data['Description'][i]
@@ -111,13 +110,16 @@ def generate_html_table(data):
                 </tr>
                 """
                 category_found = True
-            elif category_found:
-                # Add data rows after the subheading row
+            elif description != category and category_found:
+                # If we're in the correct category, add data rows after the subheading row
                 table_html += "<tr>"
                 for header in headers:
                     # Ensure the data exists for the header, if not add a blank cell
                     table_html += f"<td>{data[header][i]}</td>"
                 table_html += "</tr>"
+            elif description == category and not category_found:
+                # Skip if we are still looking for the start of the current category
+                continue
         
         table_html += "</tbody></table><br>"  # Close the table and add a line break
         
@@ -126,6 +128,7 @@ def generate_html_table(data):
     
     # Combine all tables and return the result
     return "".join(tables_data)
+
 
 
 # Load the data
