@@ -50,50 +50,31 @@ def generate_html_table(data):
     # Start the HTML with table styles
     html = """
     <style>
-        .tables-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 20px; /* Add space between tables */
-        }
-        
         table {
-            width: 100%; /* Ensure each table takes full width */
-            table-layout: fixed; /* Ensures columns have equal width */
+            width: 100%;
             border-collapse: collapse;
+            margin: 25px 0;
             font-size: 18px;
             text-align: left;
-            max-width: 100%; /* Prevent tables from exceeding container width */
         }
-        
         th, td {
             padding: 12px 15px;
             border: 1px solid #ddd;
-            word-wrap: break-word; /* Ensures long words break and don't overflow */
         }
-        
         th {
             background-color: #f4f4f4;
             color: #333;
         }
-        
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
-        
         tr:hover {
             background-color: #f1f1f1;
         }
-
-        /* Make sure the tables themselves are consistently sized */
-        .table-wrapper {
-            width: 48%; /* Ensure tables stay within 48% of container */
-        }
-
     </style>
     """
     
-    # Define subheading categories based on what you want
+    # Define subheading categories
     categories = [
         "Side-By-Side Bucket Comparison",
         "Loadout Productivity & Truck Pass Simulation",
@@ -105,53 +86,47 @@ def generate_html_table(data):
     tables_data = []
     
     # Loop through each category and collect relevant data
-    for idx, category in enumerate(categories):
-        # Start the table HTML for the current category
-        table_html = f"<div class='table-wrapper'><table>"
+    for category in categories:
+        # Create the HTML table for this category
+        table_html = f"<table><thead><tr>"
         
-        # Add the subheading row (Category) before the headers
-        table_html += f"""
-        <tr>
-            <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
-                {category}
-            </td>
-        </tr>
-        """
+        # Add table headers dynamically
+        for header in headers:
+            table_html += f"<th>{header}</th>"
+        table_html += "</tr></thead><tbody>"
         
-        # Add table headers only for the first table (index 0)
-        if idx == 0:
-            table_html += "<thead><tr>"
-            for header in headers:
-                table_html += f"<th>{header}</th>"
-            table_html += "</tr></thead><tbody>"
-        else:
-            table_html += "<tbody>"  # Just add the body for subsequent tables
-        
-        # Loop through the data and add rows for the current category
+        # Now loop through the data and add rows, but only for the current category
         category_found = False
         for i in range(len(data[headers[0]])):
             description = data['Description'][i]
             
-            # Start adding rows once we encounter the current category
+            # Add the subheading row when we encounter the correct category
             if description == category:
+                table_html += f"""
+                <tr>
+                    <td colspan="{len(headers)}" style="text-align: center; font-weight: bold; background-color: #e0e0e0;">
+                        {category}
+                    </td>
+                </tr>
+                """
                 category_found = True
-            elif category_found and description != category and description in categories:
-                # Stop once a new category is found
+            elif category_found and (description != category and description in categories):
+                # Once we've found the category, stop adding rows once we reach a new category
                 break
             elif category_found and description != category:
-                # Add data rows for the correct category
+                # If we're in the correct category, add data rows
                 table_html += "<tr>"
                 for header in headers:
                     table_html += f"<td>{data[header][i]}</td>"
                 table_html += "</tr>"
         
-        table_html += "</tbody></table></div>"  # Close the table and its wrapper
+        table_html += "</tbody></table><br>"  # Close the table and add a line break
         
         # Append the table HTML to the tables_data list
         tables_data.append(table_html)
     
-    # Wrap all the tables inside a container div
-    return f"<div class='tables-container'>{''.join(tables_data)}</div>"
+    # Combine all tables and return the result
+    return "".join(tables_data)
 
 
 # Load the data
