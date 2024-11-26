@@ -50,27 +50,39 @@ def generate_html_table(data):
     # Start the HTML with table styles
     html = """
     <style>
+        /* Container for all tables to ensure they align */
+        .tables-container {
+            width: 100%; /* Make sure the container takes the full width */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
         table {
-            width: 100%; /* Ensures tables take up the full width of the container */
+            width: 48%; /* Make each table take up 48% of the container width */
             table-layout: fixed; /* Ensures columns have equal width */
             border-collapse: collapse;
             margin: 25px 0;
             font-size: 18px;
             text-align: left;
-            max-width: 100%; /* Prevents the tables from exceeding container width */
+            max-width: 100%; /* Prevents tables from exceeding container width */
         }
+        
         th, td {
             padding: 12px 15px;
             border: 1px solid #ddd;
             word-wrap: break-word; /* Ensures long words break and don't overflow */
         }
+        
         th {
             background-color: #f4f4f4;
             color: #333;
         }
+        
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
+        
         tr:hover {
             background-color: #f1f1f1;
         }
@@ -129,14 +141,13 @@ def generate_html_table(data):
                     table_html += f"<td>{data[header][i]}</td>"
                 table_html += "</tr>"
         
-        # Close the table and add a line break for separation
-        table_html += "</tbody></table><br>"
+        table_html += "</tbody></table>"  # Close the table
         
         # Append the table HTML to the tables_data list
         tables_data.append(table_html)
     
-    # Combine all tables and return the result
-    return "".join(tables_data)
+    # Wrap all the tables inside a container div
+    return f"<div class='tables-container'>{''.join(tables_data)}</div>"
 
 # Load the data
 dump_truck_data = load_dump_truck_data(dump_truck_csv)
