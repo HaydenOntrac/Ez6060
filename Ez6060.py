@@ -43,7 +43,7 @@ def load_excavator_swl_data(swl_csv):
     swl_data['class'] = pd.to_numeric(swl_data['class'], errors='coerce')
     return swl_data
 
-def generate_html_tables(data):
+def generate_html_table(data):
     # Extract headers dynamically from the keys of the data dictionary
     headers = list(data.keys())
     
