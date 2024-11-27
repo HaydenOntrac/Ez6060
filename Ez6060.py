@@ -390,14 +390,14 @@ if calculate_button:
                 'Difference': [
                      f"{dump_truck_payload_new - dump_truck_payload_old:.0f}", f"{swings_to_fill_truck_new - swings_to_fill_truck_old:.1f}", 
                     f"{time_to_fill_truck_new - time_to_fill_truck_old:.1f}", f"{avg_trucks_per_hour_new - avg_trucks_per_hour_old:.1f}",
-                    f"{swings_per_hour_new - swings_per_hour_old:.0f}", f"{truck_tonnage_per_hour_new - truck_tonnage_per_hour_old:.0f}"
+                    "-", f"{truck_tonnage_per_hour_new - truck_tonnage_per_hour_old:.0f}"
                 ],
                 '% Difference': [
                      f"{(dump_truck_payload_new - dump_truck_payload_old) / dump_truck_payload_old * 100:.0f}%", 
                     f"{(swings_to_fill_truck_new - swings_to_fill_truck_old) / swings_to_fill_truck_old * 100:.0f}%",
                     f"{(time_to_fill_truck_new - time_to_fill_truck_old) / time_to_fill_truck_old * 100:.0f}%",
                     f"{(avg_trucks_per_hour_new - avg_trucks_per_hour_old) / avg_trucks_per_hour_old * 100:.0f}%",
-                    f"{(swings_per_hour_new - swings_per_hour_old) / swings_per_hour_old * 100:.0f}%",
+                    "-",
                     f"{(truck_tonnage_per_hour_new - truck_tonnage_per_hour_old) / truck_tonnage_per_hour_old * 100:.0f}%"
                 ]
             }
@@ -417,12 +417,12 @@ if calculate_button:
                     f"{total_trucks_per_day_new:.0f}"
                 ],
                 'Difference': [
-                    '', f"{total_m3_per_day_new - total_m3_per_day_old:.0f}", 
+                    '-', f"{total_m3_per_day_new - total_m3_per_day_old:.0f}", 
                     f"{total_tonnage_per_day_new - total_tonnage_per_day_old:.0f}", 
                     f"{total_trucks_per_day_new - total_trucks_per_day_old:.0f}"
                 ],
                 '% Difference': [
-                    '', f"{(total_m3_per_day_new - total_m3_per_day_old) / total_m3_per_day_old * 100:.0f}%", 
+                    '-', f"{(total_m3_per_day_new - total_m3_per_day_old) / total_m3_per_day_old * 100:.0f}%", 
                     f"{(total_tonnage_per_day_new - total_tonnage_per_day_old) / total_tonnage_per_day_old * 100:.0f}%", 
                     f"{(total_trucks_per_day_new - total_trucks_per_day_old) / total_trucks_per_day_old * 100:.0f}%"
                 ]
@@ -448,7 +448,7 @@ if calculate_button:
                     f"{1.1 * total_trucks_per_day_new - total_trucks_per_day_old:.0f}"
                 ],
                 '% Difference': [
-                    '10', f"{(1.1 * total_m3_per_day_new - total_m3_per_day_old) / total_m3_per_day_old * 100:.0f}%", 
+                    '10%', f"{(1.1 * total_m3_per_day_new - total_m3_per_day_old) / total_m3_per_day_old * 100:.0f}%", 
                     f"{(1.1 * total_tonnage_per_day_new - total_tonnage_per_day_old) / total_tonnage_per_day_old * 100:.0f}%", 
                     f"{(1.1 * total_trucks_per_day_new - total_trucks_per_day_old) / total_trucks_per_day_old * 100:.0f}%"
                 ]
