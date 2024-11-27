@@ -58,9 +58,13 @@ def generate_html_table(data, title):
     # Start the HTML table structure with fixed table width
     html = """
     <style>
+        /* Global styles for Dark Mode */
         body {
-            background-color: #121212; /* Dark mode background */
+            background-color: #121212; /* Dark background for the body */
             color: #e0e0e0; /* Light text for dark mode */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
         }
         table {
             width: 100%; /* Set a fixed width for the table */
@@ -70,17 +74,23 @@ def generate_html_table(data, title):
             text-align: left;
             background-color: #1e1e1e; /* Table background for dark mode */
             color: #e0e0e0; /* Light text for table content */
+            border-radius: 8px; /* Rounded corners for modern look */
         }
         th, td {
             padding: 12px 15px;
             border: 1px solid #333; /* Border color for dark mode */
+            text-align: center; /* Centered text for better readability */
         }
         th {
             background-color: #333; /* Darker header background */
-            color: #ffffff; /* Header text color */
+            color: #ffffff; /* White text for headers */
+            font-weight: bold;
         }
         tr:nth-child(even) {
             background-color: #2a2a2a; /* Slightly lighter row for contrast */
+        }
+        tr:nth-child(odd) {
+            background-color: #1e1e1e; /* Darker odd rows */
         }
         tr:hover {
             background-color: #444; /* Highlight row on hover */
@@ -93,11 +103,18 @@ def generate_html_table(data, title):
             padding-bottom: 5px;
             margin-bottom: 15px;
         }
+        /* Optionally style the container for better layout */
+        .table-container {
+            background-color: #181818;
+            padding: 15px;
+            border-radius: 10px;
+        }
     </style>
     """
     
     # Use the title for both the h3 and table
     html += f"<h3>{title}</h3>"
+    html += '<div class="table-container">'
     html += "<table><thead><tr>"
     
     # Add table headers
@@ -115,8 +132,10 @@ def generate_html_table(data, title):
         html += "</tr>"
     
     html += "</tbody></table>"
+    html += "</div>"
     
     return html
+
 
 
 # Load the data
