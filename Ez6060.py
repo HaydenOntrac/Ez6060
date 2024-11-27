@@ -368,7 +368,7 @@ if calculate_button:
                     f"{new_total_load - old_total_load:.0f}"
                 ],
                 '% Difference': [
-                     '-', '-', f"{(new_payload - old_payload) / old_payload * 100:.0f}%", 
+                     f"{(new_capacity - old_capacity) / old_capacity * 100:.0f}%", '-', f"{(new_payload - old_payload) / old_payload * 100:.0f}%", 
                     f"{(new_total_load - old_total_load) / old_total_load * 100:.0f}%"
                 ]
             }
