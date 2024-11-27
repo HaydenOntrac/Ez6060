@@ -82,7 +82,7 @@ def generate_html_table(data, title):
             text-align: center; /* Centered text for better readability */
         }
         th {
-            background-color: #f4c542; /* Pale yellow-orange color for headers */
+            background-color: #1e1e1e; /* Pale yellow-orange color for headers */
             color: #ffffff; /* White text for headers */
             font-weight: bold;
         }
