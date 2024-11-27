@@ -359,7 +359,7 @@ if calculate_button:
                      f"{old_capacity:.1f}", f"{user_data['material_density']:.0f}", f"{old_payload:.0f}", 
                     f"{old_total_load:.0f}"
                 ],
-                'New Bucket': [
+                'XMOR® Bucket': [
                      f"{new_capacity:.1f}", f"{user_data['material_density']:.0f}", f"{new_payload:.0f}", 
                     f"{new_total_load:.0f}"
                 ],
@@ -383,7 +383,7 @@ if calculate_button:
                      f"{dump_truck_payload_old:.0f}{'*' if dump_truck_payload_old != dump_truck_payload else ''}", f"{swings_to_fill_truck_old:.1f}", 
                     f"{time_to_fill_truck_old:.1f}", f"{avg_trucks_per_hour_old:.1f}", f"{swings_per_hour_old:.0f}", f"{truck_tonnage_per_hour_old:.0f}"
                 ],
-                'New Bucket': [
+                'XMOR® Bucket': [
                      f"{dump_truck_payload_new:.0f}{'*' if dump_truck_payload_new != dump_truck_payload else ''}", f"{swings_to_fill_truck_new:.1f}", 
                     f"{time_to_fill_truck_new:.1f}", f"{avg_trucks_per_hour_new:.1f}", f"{swings_per_hour_new:.0f}", f"{truck_tonnage_per_hour_new:.0f}"
                 ],
@@ -412,7 +412,7 @@ if calculate_button:
                     '1000', f"{total_m3_per_day_old:.0f}", f"{total_tonnage_per_day_old:.0f}", 
                     f"{total_trucks_per_day_old:.0f}"
                 ],
-                'New Bucket': [
+                'XMOR® Bucket': [
                     '1000', f"{total_m3_per_day_new:.0f}", f"{total_tonnage_per_day_new:.0f}", 
                     f"{total_trucks_per_day_new:.0f}"
                 ],
@@ -438,7 +438,7 @@ if calculate_button:
                     '1000', f"{total_m3_per_day_old:.0f}", f"{total_tonnage_per_day_old:.0f}", 
                     f"{total_trucks_per_day_old:.0f}"
                 ],
-                'New Bucket': [
+                'XMOR® Bucket': [
                     '1100', f"{1.1 * total_m3_per_day_new:.0f}", f"{1.1 * total_tonnage_per_day_new:.0f}", 
                     f"{1.1 * total_trucks_per_day_new:.0f}"
                 ],
