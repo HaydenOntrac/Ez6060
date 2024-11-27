@@ -455,22 +455,32 @@ if calculate_button:
                 ]
             }
             
-            # Convert each section into a DataFrame
-            data_tables = {
-            'Side-by-Side Bucket Comparison': side_by_side_data,
-            'Loadout Productivity & Truck Pass Simulation': loadout_productivity_data,
-            '1000 Swings Side-by-Side Simulation': swings_simulation_data,
-            '10% Improved Cycle Time Simulation': improved_cycle_data
-            }
-
-            # Convert all data sections into individual DataFrames
-            df_side_by_side = pd.DataFrame(side_by_side_data)
-            df_loadout_productivity = pd.DataFrame(loadout_productivity_data)
-            df_swings_simulation = pd.DataFrame(swings_simulation_data)
-            df_improved_cycle = pd.DataFrame(improved_cycle_data)
+            # Function to add a title row
+            def add_section_title(title, data):
+                # Create a DataFrame with the title row
+                title_row = pd.DataFrame([[title] + [''] * (len(data.columns) - 1)], columns=data.columns)
+                # Concatenate title row and the data
+                return pd.concat([title_row, data], ignore_index=True)
             
-            # Concatenate all DataFrames into one
-            final_df = pd.concat([df_side_by_side, df_loadout_productivity, df_swings_simulation, df_improved_cycle], ignore_index=True)
+            # Example DataFrames for each section
+            side_by_side_df = pd.DataFrame(side_by_side_data)
+            loadout_productivity_df = pd.DataFrame(loadout_productivity_data)
+            swings_simulation_df = pd.DataFrame(swings_simulation_data)
+            improved_cycle_df = pd.DataFrame(improved_cycle_data)
+            
+            # Adding section headers
+            side_by_side_with_title = add_section_title("Side-by-Side Bucket Comparison", side_by_side_df)
+            loadout_productivity_with_title = add_section_title("Loadout Productivity & Truck Pass Simulation", loadout_productivity_df)
+            swings_simulation_with_title = add_section_title("1000 Swings Side-by-Side Simulation", swings_simulation_df)
+            improved_cycle_with_title = add_section_title("10% Improved Cycle Time Simulation", improved_cycle_df)
+            
+            # Combine all sections into one DataFrame
+            final_df = pd.concat([
+                side_by_side_with_title,
+                loadout_productivity_with_title,
+                swings_simulation_with_title,
+                improved_cycle_with_title
+            ], ignore_index=True)
 
             # Create a Pandas Excel writer
             excel_file = BytesIO()
