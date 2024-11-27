@@ -52,11 +52,46 @@ def generate_html_table(data):
     headers = list(data.keys())
     
     # Find the maximum length of the lists (rows) in the data dictionary
-    # This handles cases where the lists might have different lengths
     num_rows = max(len(data[header]) for header in headers)
     
-    # Start the HTML table structure
-    html = "<table><thead><tr>"
+    # Start the HTML table structure with fixed table width
+    html = """
+    <style>
+        table {
+            width: 80%; /* Set a fixed width for the table */
+            margin: 25px auto; /* Center the table horizontally */
+            border-collapse: collapse;
+            font-size: 18px;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        h3 {
+            font-size: 22px;
+            color: #0044cc;
+            font-weight: bold;
+            border-bottom: 2px solid #0044cc;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+    </style>
+    """
+    
+    # Start the table HTML
+    html += "<h3>Data Table</h3>"
+    html += "<table><thead><tr>"
     
     # Add table headers
     for header in headers:
@@ -68,8 +103,6 @@ def generate_html_table(data):
     for i in range(num_rows):
         html += "<tr>"
         for header in headers:
-            # If the current row index exceeds the length of the data for a column, 
-            # set the cell value as empty.
             value = data[header][i] if i < len(data[header]) else ""
             html += f"<td>{value}</td>"
         html += "</tr>"
@@ -77,7 +110,6 @@ def generate_html_table(data):
     html += "</tbody></table>"
     
     return html
-
 
 # Load the data
 dump_truck_data = load_dump_truck_data(dump_truck_csv)
