@@ -58,7 +58,7 @@ def generate_html_table(data):
     html = """
     <style>
         table {
-            width: 80%; /* Set a fixed width for the table */
+            width: 100%; /* Set a fixed width for the table */
             margin: 25px auto; /* Center the table horizontally */
             border-collapse: collapse;
             font-size: 18px;
