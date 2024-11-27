@@ -58,7 +58,7 @@ def generate_html_table(data, title):
     html = """
     <style>
         table {
-            width: 80%; /* Set a fixed width for the table */
+            width: 100%; /* Set a fixed width for the table */
             margin: 25px auto; /* Center the table horizontally */
             border-collapse: collapse;
             font-size: 18px;
@@ -470,8 +470,8 @@ if calculate_button:
                 # Call the function for each table with the appropriate title
                 st.markdown(generate_html_table(side_by_side_data, "Side-by-Side Bucket Comparison"), unsafe_allow_html=True)
                 st.markdown(generate_html_table(loadout_productivity_data, "Loadout Productivity & Truck Pass Simulation"), unsafe_allow_html=True)
-                st.markdown(generate_html_table(swings_side_by_side_data, "1000 Swings Side-by-Side Simulation"), unsafe_allow_html=True)
-                st.markdown(generate_html_table(improved_cycle_time_data, "10% Improved Cycle Time Simulation"), unsafe_allow_html=True)
+                st.markdown(generate_html_table(swings_simulation_data, "1000 Swings Side-by-Side Simulation"), unsafe_allow_html=True)
+                st.markdown(generate_html_table(improved_cycle_data, "10% Improved Cycle Time Simulation"), unsafe_allow_html=True)
                 
                 if dump_truck_payload_new != dump_truck_payload:
                     st.write(f"*Dump Truck fill factor of {(100*dump_truck_payload_new/dump_truck_payload):.1f}% applied for XMOR® Bucket pass matching.")
