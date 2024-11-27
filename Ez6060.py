@@ -68,7 +68,7 @@ def generate_html_table(data, title):
         }
         table {
             width: 100%; /* Set a fixed width for the table */
-            margin: 25px auto; /* Center the table horizontally */
+            margin: 0 auto; /* Center the table horizontally */
             border-collapse: collapse;
             font-size: 16px;
             text-align: left;
@@ -82,7 +82,7 @@ def generate_html_table(data, title):
             text-align: center; /* Centered text for better readability */
         }
         th {
-            background-color: #333; /* Darker header background */
+            background-color: #f4c542; /* Pale yellow-orange color for headers */
             color: #ffffff; /* White text for headers */
             font-weight: bold;
         }
@@ -101,7 +101,7 @@ def generate_html_table(data, title):
             font-weight: bold;
             border-bottom: 2px solid #80cbc4;
             padding-bottom: 5px;
-            margin-bottom: 15px;
+            margin-bottom: 5px; /* Reduced margin to remove gap */
         }
         /* Optionally style the container for better layout */
         .table-container {
@@ -135,7 +135,6 @@ def generate_html_table(data, title):
     html += "</div>"
     
     return html
-
 
 
 # Load the data
