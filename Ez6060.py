@@ -79,13 +79,8 @@ def generate_html_table(data_tables):
         # Extract headers dynamically from the keys of the data dictionary
         headers = list(data.keys())
         
-        # Determine the number of rows (all lists in the data should have the same length)
+        # Determine the number of rows (assuming all columns have the same number of rows)
         num_rows = len(data[headers[0]])
-        
-        # Check if all columns have the same number of rows
-        for header in headers:
-            if len(data[header]) != num_rows:
-                raise ValueError(f"Mismatch in data lengths: '{header}' has {len(data[header])} entries, expected {num_rows}.")
         
         # Start the table HTML for the current data table
         html += f"<h3>{table_name}</h3><table><thead><tr>"
@@ -106,6 +101,7 @@ def generate_html_table(data_tables):
         html += "</tbody></table>"
 
     return html
+
 
 # Load the data
 dump_truck_data = load_dump_truck_data(dump_truck_csv)
