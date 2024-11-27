@@ -462,7 +462,26 @@ if calculate_button:
             '10% Improved Cycle Time Simulation': improved_cycle_data
             }
 
-            df = pd.DataFrame(data_tables)
+            # Convert all data sections into individual DataFrames
+            df_side_by_side = pd.DataFrame(side_by_side_data)
+            df_loadout_productivity = pd.DataFrame(loadout_productivity_data)
+            df_swings_simulation = pd.DataFrame(swings_simulation_data)
+            df_improved_cycle = pd.DataFrame(improved_cycle_data)
+            
+            # Concatenate all DataFrames into one
+            final_df = pd.concat([df_side_by_side, df_loadout_productivity, df_swings_simulation, df_improved_cycle], ignore_index=True)
+
+            # Create a Pandas Excel writer
+            excel_file = BytesIO()
+            
+            with pd.ExcelWriter(excel_file, engine='xlsxwriter') as writer:
+                    # Create DataFrames for each dataset
+                    final_df.to_excel(writer, sheet_name='Excavator Simulation Data', index=False)
+                    # Ensure the file is saved in memory
+                    writer.save()
+                    
+                # Rewind the buffer to the beginning so it can be read
+            excel_file.seek(0)
             
             if df is not None:
                 st.title('XMOR® Productivity Comparison')
@@ -482,7 +501,7 @@ if calculate_button:
                 #st.write(f"Safe Working Load at {user_data['reach']}m reach ({user_data['make']} {user_data['model']}): {swl:.0f}kg")
                 st.write(f"Calculations based on the {user_data['make']} {user_data['model']} with a {user_data['boom_length']}m boom, {user_data['arm_length']}m arm, {user_data['cwt']}kg counterweight, {user_data['shoe_width']}mm shoes, operating at a reach of {user_data['reach']}m, and with a material density of {user_data['material_density']:.0f}kg/m³.")
                 st.write(f"Dump Truck: {truck_brand} {truck_model}, Rated payload = {user_data['dump_truck_payload'] * 1000 :.0f}kg")
-                excel_file = generate_excel(df)
+                
                 st.download_button(
                     label="Download Results In Excel",
                     data=excel_file,
