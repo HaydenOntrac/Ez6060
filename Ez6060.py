@@ -285,11 +285,11 @@ if calculate_button:
         if optimal_bucket:
             st.success(f"Good news! ONTRAC could improve your productivity!")
             st.success(f"Your ONTRAC XMOR® Bucket Solution is the: {optimal_bucket['bucket_name']} ({optimal_bucket['bucket_size']} m³)")
-            st.write(f"Total Suspended Load (XMOR® Bucket): {optimal_bucket['total_bucket_weight']:.0f}kg")
-            st.write(f"Safe Working Load at {user_data['reach']}m reach ({user_data['make']} {user_data['model']}): {swl:.0f}kg")
-            st.write(" ")
-            st.write(f"Calculations based on the {user_data['make']} {user_data['model']} with a {user_data['boom_length']}m boom, {user_data['arm_length']}m arm, {user_data['cwt']}kg counterweight, {user_data['shoe_width']}mm shoes, operating at a reach of {user_data['reach']}m, and with a material density of {user_data['material_density']:.0f}kg/m³.")
-            st.write(f"Dump Truck: {truck_brand} {truck_model}, Rated payload = {user_data['dump_truck_payload'] * 1000 :.0f}kg")
+            #st.write(f"Total Suspended Load (XMOR® Bucket): {optimal_bucket['total_bucket_weight']:.0f}kg")
+            #st.write(f"Safe Working Load at {user_data['reach']}m reach ({user_data['make']} {user_data['model']}): {swl:.0f}kg")
+            #st.write(" ")
+            #st.write(f"Calculations based on the {user_data['make']} {user_data['model']} with a {user_data['boom_length']}m boom, {user_data['arm_length']}m arm, {user_data['cwt']}kg counterweight, {user_data['shoe_width']}mm shoes, operating at a reach of {user_data['reach']}m, and with a material density of {user_data['material_density']:.0f}kg/m³.")
+            #st.write(f"Dump Truck: {truck_brand} {truck_model}, Rated payload = {user_data['dump_truck_payload'] * 1000 :.0f}kg")
 
             # Show table
             old_capacity = user_data['current_bucket_size']
@@ -472,7 +472,11 @@ if calculate_button:
                 st.markdown(generate_html_table(loadout_productivity_data, "Loadout Productivity & Truck Pass Simulation"), unsafe_allow_html=True)
                 st.markdown(generate_html_table(swings_simulation_data, "1000 Swings Side-by-Side Simulation"), unsafe_allow_html=True)
                 st.markdown(generate_html_table(improved_cycle_data, "10% Improved Cycle Time Simulation"), unsafe_allow_html=True)
-                
+                st.write(f"Total Suspended Load (XMOR® Bucket): {optimal_bucket['total_bucket_weight']:.0f}kg")
+                st.write(f"Safe Working Load at {user_data['reach']}m reach ({user_data['make']} {user_data['model']}): {swl:.0f}kg")
+                st.write(" ")
+                st.write(f"Calculations based on the {user_data['make']} {user_data['model']} with a {user_data['boom_length']}m boom, {user_data['arm_length']}m arm, {user_data['cwt']}kg counterweight, {user_data['shoe_width']}mm shoes, operating at a reach of {user_data['reach']}m, and with a material density of {user_data['material_density']:.0f}kg/m³.")
+                st.write(f"Dump Truck: {truck_brand} {truck_model}, Rated payload = {user_data['dump_truck_payload'] * 1000 :.0f}kg")
                 if dump_truck_payload_new != dump_truck_payload:
                     st.write(f"*Dump Truck fill factor of {(100*dump_truck_payload_new/dump_truck_payload):.1f}% applied for XMOR® Bucket pass matching.")
                 if dump_truck_payload_old != dump_truck_payload:
