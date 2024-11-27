@@ -43,11 +43,11 @@ def load_excavator_swl_data(swl_csv):
     swl_data['class'] = pd.to_numeric(swl_data['class'], errors='coerce')
     return swl_data
 
-def generate_html_table(data):
-    # Extract headers dynamically from the keys of the data dictionary
-    headers = list(data.keys())
-    
-    # Start the HTML with table styles and header row
+def generate_html_table(data_tables):
+    """
+    Generate HTML tables for each dataset in `data_tables`, each being a dictionary where
+    keys are column headers and values are lists of data.
+    """
     html = """
     <style>
         table {
@@ -72,34 +72,39 @@ def generate_html_table(data):
             background-color: #f1f1f1;
         }
     </style>
-    <table>
-        <thead>
-            <tr>
-    """
-    # Add table headers dynamically
-    for header in headers:
-        html += f"<th>{header}</th>"
-    
-    html += """
-            </tr>
-        </thead>
-        <tbody>
     """
     
-    # Determine the number of rows
-    num_rows = len(data[headers[0]])
-    
-    # Add rows dynamically
-    for i in range(num_rows):
-        html += "<tr>"
+    # Process each data table in the list
+    for table_name, data in data_tables.items():
+        # Extract headers dynamically from the keys of the data dictionary
+        headers = list(data.keys())
+        
+        # Determine the number of rows (all lists in the data should have the same length)
+        num_rows = len(data[headers[0]])
+        
+        # Check if all columns have the same number of rows
         for header in headers:
-            html += f"<td>{data[header][i]}</td>"
-        html += "</tr>"
-    
-    html += """
-        </tbody>
-    </table>
-    """
+            if len(data[header]) != num_rows:
+                raise ValueError(f"Mismatch in data lengths: '{header}' has {len(data[header])} entries, expected {num_rows}.")
+        
+        # Start the table HTML for the current data table
+        html += f"<h3>{table_name}</h3><table><thead><tr>"
+        
+        # Add the headers to the table
+        for header in headers:
+            html += f"<th>{header}</th>"
+        
+        html += "</tr></thead><tbody>"
+        
+        # Add rows to the table
+        for i in range(num_rows):
+            html += "<tr>"
+            for header in headers:
+                html += f"<td>{data[header][i]}</td>"
+            html += "</tr>"
+        
+        html += "</tbody></table>"
+
     return html
 
 # Load the data
@@ -445,19 +450,23 @@ if calculate_button:
             }
             
             # Convert each section into a DataFrame
-            side_by_side_df = pd.DataFrame(side_by_side_data)
+            data_tables = {
+            'Side-by-Side Bucket Comparison': side_by_side_data,
+            'Loadout Productivity & Truck Pass Simulation': loadout_productivity_data,
+            '1000 Swings Side-by-Side Simulation': swings_simulation_data,
+            '10% Improved Cycle Time Simulation': improved_cycle_data
+            }
+
+            df = pd.DataFrame(data_tables)
             
-            if side_by_side_df is not None:
+            if df is not None:
                 st.title('Bucket Sizing and Productivity Calculator')
-                st.markdown(generate_html_table(side_by_side_data), unsafe_allow_html=True)
-                st.markdown(generate_html_table(loadout_productivity_data), unsafe_allow_html=True)
-                st.markdown(generate_html_table(swings_simulation_data), unsafe_allow_html=True)
-                st.markdown(generate_html_table(improved_cycle_data), unsafe_allow_html=True)
+                st.markdown(generate_html_table(data_tables), unsafe_allow_html=True)
                 if dump_truck_payload_new != dump_truck_payload:
                     st.write(f"*Dump Truck fill factor of {(100*dump_truck_payload_new/dump_truck_payload):.1f}% applied for XMOR® Bucket pass matching.")
                 if dump_truck_payload_old != dump_truck_payload:
                     st.write(f"*Dump Truck fill factor of {(100*dump_truck_payload_old/dump_truck_payload):.1f}% applied for Old Bucket pass matching.")
-                excel_file = generate_excel(side_by_side_df)
+                excel_file = generate_excel(df)
                 st.download_button(
                     label="Download Results In Excel",
                     data=excel_file,
