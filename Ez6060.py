@@ -43,10 +43,10 @@ def load_excavator_swl_data(swl_csv):
     swl_data['class'] = pd.to_numeric(swl_data['class'], errors='coerce')
     return swl_data
 
-def generate_html_table(data):
+def generate_html_table(data, title):
     """
     Generate a simple HTML table from a dictionary where keys are column headers
-    and values are lists of data.
+    and values are lists of data. The table will have a dynamic title.
     """
     # Extract headers dynamically from the keys of the data dictionary
     headers = list(data.keys())
@@ -58,7 +58,7 @@ def generate_html_table(data):
     html = """
     <style>
         table {
-            width: 100%; /* Set a fixed width for the table */
+            width: 80%; /* Set a fixed width for the table */
             margin: 25px auto; /* Center the table horizontally */
             border-collapse: collapse;
             font-size: 18px;
@@ -89,8 +89,8 @@ def generate_html_table(data):
     </style>
     """
     
-    # Start the table HTML
-    html += "<h3>Data Table</h3>"
+    # Use the title for both the h3 and table
+    html += f"<h3>{title}</h3>"
     html += "<table><thead><tr>"
     
     # Add table headers
@@ -110,6 +110,7 @@ def generate_html_table(data):
     html += "</tbody></table>"
     
     return html
+
 
 # Load the data
 dump_truck_data = load_dump_truck_data(dump_truck_csv)
@@ -465,10 +466,13 @@ if calculate_button:
             
             if df is not None:
                 st.title('Bucket Sizing and Productivity Calculator')
-                st.markdown(generate_html_table(side_by_side_data), unsafe_allow_html=True)
-                st.markdown(generate_html_table(loadout_productivity_data), unsafe_allow_html=True)
-                st.markdown(generate_html_table(swings_simulation_data), unsafe_allow_html=True)
-                st.markdown(generate_html_table(improved_cycle_data), unsafe_allow_html=True)
+                
+                # Call the function for each table with the appropriate title
+                st.markdown(generate_html_table(side_by_side_data, "Side-by-Side Bucket Comparison"), unsafe_allow_html=True)
+                st.markdown(generate_html_table(loadout_productivity_data, "Loadout Productivity & Truck Pass Simulation"), unsafe_allow_html=True)
+                st.markdown(generate_html_table(swings_side_by_side_data, "1000 Swings Side-by-Side Simulation"), unsafe_allow_html=True)
+                st.markdown(generate_html_table(improved_cycle_time_data, "10% Improved Cycle Time Simulation"), unsafe_allow_html=True)
+                
                 if dump_truck_payload_new != dump_truck_payload:
                     st.write(f"*Dump Truck fill factor of {(100*dump_truck_payload_new/dump_truck_payload):.1f}% applied for XMOR® Bucket pass matching.")
                 if dump_truck_payload_old != dump_truck_payload:
