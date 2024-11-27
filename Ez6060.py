@@ -97,9 +97,9 @@ def generate_html_table(data, title):
         }
         h3 {
             font-size: 22px;
-            color: #80cbc4; /* Accent color for the title */
+            color: #ff7f50; /* Orange color for the title */
             font-weight: bold;
-            border-bottom: 2px solid #80cbc4;
+            border-bottom: 2px solid #ff7f50;
             padding-bottom: 5px;
             margin-bottom: 5px; /* Reduced margin to remove gap */
         }
