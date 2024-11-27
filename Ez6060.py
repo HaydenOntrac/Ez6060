@@ -7,6 +7,7 @@
 import streamlit as st
 import pandas as pd
 import io
+from io import BytesIO
 import math
 
 # Define your CSV file paths here (use raw strings or double backslashes)
