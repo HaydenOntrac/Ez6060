@@ -188,7 +188,7 @@ truck_payload = st.selectbox("Select Dump Truck Payload (tonnes)", dump_truck_da
 # Additional Inputs
 
 st.title("Additional Information")
-material_density = st.number_input("Material Density (kg/m³)     e.g. 1500", min_value=0.0)
+st.number_input("Material Density (kg/m³)", placeholder="Enter material density", help="The density of the material being excavated, e.g. 1500", min_value=0.0)
 quick_hitch = st.checkbox("My Machine Uses a Quick Hitch")
 quick_hitch_weight = st.number_input("Quick Hitch Weight (kg)", min_value=0.0) if quick_hitch else 0
 current_bucket_size = st.number_input("Current Bucket Size (m³)", min_value=0.0)
