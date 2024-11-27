@@ -465,7 +465,7 @@ if calculate_button:
             df = pd.DataFrame(data_tables)
             
             if df is not None:
-                st.title('Bucket Sizing and Productivity Calculator')
+                st.title('XMOR® Productivity Comparison')
                 
                 # Call the function for each table with the appropriate title
                 st.markdown(generate_html_table(side_by_side_data, "Side-by-Side Bucket Comparison"), unsafe_allow_html=True)
