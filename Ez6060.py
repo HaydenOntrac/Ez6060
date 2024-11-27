@@ -47,7 +47,7 @@ def load_excavator_swl_data(swl_csv):
 def generate_html_table(data, title):
     """
     Generate a simple HTML table from a dictionary where keys are column headers
-    and values are lists of data. The table will have a dynamic title.
+    and values are lists of data. The table will have a dynamic title, styled for dark mode.
     """
     # Extract headers dynamically from the keys of the data dictionary
     headers = list(data.keys())
@@ -58,32 +58,38 @@ def generate_html_table(data, title):
     # Start the HTML table structure with fixed table width
     html = """
     <style>
+        body {
+            background-color: #121212; /* Dark mode background */
+            color: #e0e0e0; /* Light text for dark mode */
+        }
         table {
             width: 100%; /* Set a fixed width for the table */
             margin: 25px auto; /* Center the table horizontally */
             border-collapse: collapse;
             font-size: 16px;
             text-align: left;
+            background-color: #1e1e1e; /* Table background for dark mode */
+            color: #e0e0e0; /* Light text for table content */
         }
         th, td {
             padding: 12px 15px;
-            border: 1px solid #ddd;
+            border: 1px solid #333; /* Border color for dark mode */
         }
         th {
-            background-color: #f4f4f4;
-            color: #333;
+            background-color: #333; /* Darker header background */
+            color: #ffffff; /* Header text color */
         }
         tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: #2a2a2a; /* Slightly lighter row for contrast */
         }
         tr:hover {
-            background-color: #f1f1f1;
+            background-color: #444; /* Highlight row on hover */
         }
         h3 {
             font-size: 22px;
-            color: #0044cc;
+            color: #80cbc4; /* Accent color for the title */
             font-weight: bold;
-            border-bottom: 2px solid #0044cc;
+            border-bottom: 2px solid #80cbc4;
             padding-bottom: 5px;
             margin-bottom: 15px;
         }
