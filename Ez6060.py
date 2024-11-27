@@ -377,7 +377,7 @@ if calculate_button:
             # Loadout Productivity & Truck Pass Simulation Data
             loadout_productivity_data = {
                 'Description': [
-                     'Dump Truck Payload (kg)', 'Avg No. Swings to Fill Truck', 
+                     f"{truck_brand} {truck_model} Payload (kg)", 'Avg No. Swings to Fill Truck', 
                     'Time to Fill Truck (min)', 'Avg Trucks/Hour @ 75% eff', 'Swings/Hour', 'Tonnes/Hour'
                 ],
                 'Old Bucket': [
