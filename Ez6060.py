@@ -43,63 +43,35 @@ def load_excavator_swl_data(swl_csv):
     swl_data['class'] = pd.to_numeric(swl_data['class'], errors='coerce')
     return swl_data
 
-def generate_html_table(data_tables):
+def generate_html_table(data):
     """
-    Generate HTML tables for each dataset in `data_tables`, each being a dictionary where
-    keys are column headers and values are lists of data.
+    Generate a simple HTML table from a dictionary where keys are column headers
+    and values are lists of data.
     """
-    html = """
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 25px 0;
-            font-size: 18px;
-            text-align: left;
-        }
-        th, td {
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-        }
-        th {
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-    </style>
-    """
+    # Extract headers dynamically from the keys of the data dictionary
+    headers = list(data.keys())
     
-    # Process each data table in the list
-    for table_name, data in data_tables.items():
-        # Extract headers dynamically from the keys of the data dictionary
-        headers = list(data.keys())
-        
-        # Determine the number of rows (assuming all columns have the same number of rows)
-        num_rows = len(data[headers[0]])
-        
-        # Start the table HTML for the current data table
-        html += f"<h3>{table_name}</h3><table><thead><tr>"
-        
-        # Add the headers to the table
+    # Determine the number of rows (based on the first column's length)
+    num_rows = len(data[headers[0]])
+    
+    # Start the HTML table structure
+    html = "<table><thead><tr>"
+    
+    # Add table headers
+    for header in headers:
+        html += f"<th>{header}</th>"
+    
+    html += "</tr></thead><tbody>"
+    
+    # Add rows to the table
+    for i in range(num_rows):
+        html += "<tr>"
         for header in headers:
-            html += f"<th>{header}</th>"
-        
-        html += "</tr></thead><tbody>"
-        
-        # Add rows to the table
-        for i in range(num_rows):
-            html += "<tr>"
-            for header in headers:
-                html += f"<td>{data[header][i]}</td>"
-            html += "</tr>"
-        
-        html += "</tbody></table>"
-
+            html += f"<td>{data[header][i]}</td>"
+        html += "</tr>"
+    
+    html += "</tbody></table>"
+    
     return html
 
 
