@@ -43,7 +43,7 @@ def load_excavator_swl_data(swl_csv):
     swl_data['class'] = pd.to_numeric(swl_data['class'], errors='coerce')
     return swl_data
 
-def generate_html_table(data):
+def generate_html_table(data, table_title="Data Table"):
     """
     Generate a simple HTML table from a dictionary where keys are column headers
     and values are lists of data.
@@ -52,11 +52,54 @@ def generate_html_table(data):
     headers = list(data.keys())
     
     # Find the maximum length of the lists (rows) in the data dictionary
-    # This handles cases where the lists might have different lengths
     num_rows = max(len(data[header]) for header in headers)
     
     # Start the HTML table structure
-    html = "<table><thead><tr>"
+    html = f"""
+    <style>
+        table {{
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 18px;
+            text-align: left;
+        }}
+        th, td {{
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }}
+        th {{
+            background-color: #f4f4f4;
+            color: #333;
+        }}
+        tr:nth-child(even) {{
+            background-color: #f9f9f9;
+        }}
+        tr:hover {{
+            background-color: #f1f1f1;
+        }}
+        h3 {{
+            font-size: 22px;
+            color: #0044cc;
+            font-weight: bold;
+            border-bottom: 2px solid #0044cc;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }}
+        .subheading {{
+            font-size: 20px;
+            color: #ff6347;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #ff6347;
+        }}
+    </style>
+    """
+    
+    # Start the table HTML
+    html += f"<h3>{table_title}</h3>"
+    html += "<table><thead><tr>"
     
     # Add table headers
     for header in headers:
@@ -68,8 +111,6 @@ def generate_html_table(data):
     for i in range(num_rows):
         html += "<tr>"
         for header in headers:
-            # If the current row index exceeds the length of the data for a column, 
-            # set the cell value as empty.
             value = data[header][i] if i < len(data[header]) else ""
             html += f"<td>{value}</td>"
         html += "</tr>"
