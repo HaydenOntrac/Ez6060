@@ -430,7 +430,10 @@ if calculate_button:
             
             if df is not None:
                 st.title('Bucket Sizing and Productivity Calculator')
-                st.markdown(generate_html_table(data_tables), unsafe_allow_html=True)
+                st.markdown(generate_html_table(side_by_side_data), unsafe_allow_html=True)
+                st.markdown(generate_html_table(loadout_productivity_data), unsafe_allow_html=True)
+                st.markdown(generate_html_table(swings_simulation_data), unsafe_allow_html=True)
+                st.markdown(generate_html_table(improved_cycle_data), unsafe_allow_html=True)
                 if dump_truck_payload_new != dump_truck_payload:
                     st.write(f"*Dump Truck fill factor of {(100*dump_truck_payload_new/dump_truck_payload):.1f}% applied for XMOR® Bucket pass matching.")
                 if dump_truck_payload_old != dump_truck_payload:
