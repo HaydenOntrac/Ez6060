@@ -51,8 +51,9 @@ def generate_html_table(data):
     # Extract headers dynamically from the keys of the data dictionary
     headers = list(data.keys())
     
-    # Determine the number of rows (based on the first column's length)
-    num_rows = len(data[headers[0]])
+    # Find the maximum length of the lists (rows) in the data dictionary
+    # This handles cases where the lists might have different lengths
+    num_rows = max(len(data[header]) for header in headers)
     
     # Start the HTML table structure
     html = "<table><thead><tr>"
@@ -63,11 +64,14 @@ def generate_html_table(data):
     
     html += "</tr></thead><tbody>"
     
-    # Add rows to the table
+    # Add rows to the table, ensuring to handle any missing data gracefully
     for i in range(num_rows):
         html += "<tr>"
         for header in headers:
-            html += f"<td>{data[header][i]}</td>"
+            # If the current row index exceeds the length of the data for a column, 
+            # set the cell value as empty.
+            value = data[header][i] if i < len(data[header]) else ""
+            html += f"<td>{value}</td>"
         html += "</tr>"
     
     html += "</tbody></table>"
