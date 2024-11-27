@@ -482,7 +482,7 @@ if calculate_button:
             # Rewind the buffer to the beginning so it can be read
             excel_file.seek(0)
             
-            if df is not None:
+            if final_df is not None:
                 st.title('XMOR® Productivity Comparison')
             
                 # Call the function for each table with the appropriate title
