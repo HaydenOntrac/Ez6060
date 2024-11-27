@@ -103,6 +103,7 @@ def generate_html_table(data_tables):
     return html
 
 
+
 # Load the data
 dump_truck_data = load_dump_truck_data(dump_truck_csv)
 swl_data = load_excavator_swl_data(swl_csv)
