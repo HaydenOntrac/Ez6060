@@ -308,8 +308,7 @@ if calculate_button:
         optimal_bucket = select_optimal_bucket(user_data, bucket_data, swl)
     
         if optimal_bucket:
-            st.success(f"Good news! ONTRAC could improve your productivity! by up to {Productivity}")
-            st.success(f"Your ONTRAC XMOR® Bucket Solution is the: {optimal_bucket['bucket_name']} ({optimal_bucket['bucket_size']} m³)")
+
             #st.write(f"Total Suspended Load (XMOR® Bucket): {optimal_bucket['total_bucket_weight']:.0f}kg")
             #st.write(f"Safe Working Load at {user_data['reach']}m reach ({user_data['make']} {user_data['model']}): {swl:.0f}kg")
             #st.write(" ")
@@ -373,6 +372,9 @@ if calculate_button:
             total_trucks_per_day_new = total_tonnage_per_day_new / dump_truck_payload * 1000
 
             Productivity = f"{(1.1 * total_tonnage_per_hour_new - total_tonnage_per_hour_old) / total_tonnage_per_hour_old * 100:.0f}%"
+
+            st.success(f"Good news! ONTRAC could improve your productivity! by up to {Productivity}")
+            st.success(f"Your ONTRAC XMOR® Bucket Solution is the: {optimal_bucket['bucket_name']} ({optimal_bucket['bucket_size']} m³)")
     
             # Side-by-Side Bucket Comparison Data
             side_by_side_data = {
