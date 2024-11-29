@@ -9,6 +9,7 @@ import pandas as pd
 import io
 from io import BytesIO
 import math
+from PIL import Image
 
 # Define your CSV file paths here (use raw strings or double backslashes)
 swl_csv = 'excavator_swl.csv'  # Ensure this file exists
