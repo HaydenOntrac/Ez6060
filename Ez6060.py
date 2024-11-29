@@ -381,7 +381,7 @@ if calculate_button:
             XMOR_BHB_IMAGE = Image.open('images/XMOR_BHB_IMAGE.png')
 
             # Show images
-            st.image([XMOR_BHC_IMAGE], caption=["f"{optimal_bucket['bucket_name']} ({optimal_bucket['bucket_size']} m³)""], width=400)
+            st.image([XMOR_BHC_IMAGE], caption=[f"{optimal_bucket['bucket_name']} ({optimal_bucket['bucket_size']} m³)"], width=400)
     
             # Side-by-Side Bucket Comparison Data
             side_by_side_data = {
