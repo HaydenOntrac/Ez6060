@@ -377,8 +377,8 @@ if calculate_button:
             st.success(f"Good news! ONTRAC could improve your productivity by up to {Productivity}!")
             st.success(f"Your ONTRAC XMOR® Bucket Solution is the: {optimal_bucket['bucket_name']} ({optimal_bucket['bucket_size']} m³)")
             # Load and display images from a local directory
-            XMOR_BHC_IMAGE = Image.open('images/XMOR_BHC_IMAGE.png')
-            XMOR_BHB_IMAGE = Image.open('images/XMOR_BHB_IMAGE.png')
+            XMOR_BHC_IMAGE = Image.open('XMOR_BHC_IMAGE.png')
+            XMOR_BHB_IMAGE = Image.open('XMOR_BHB_IMAGE.png')
 
             # Show images
             st.image([XMOR_BHC_IMAGE], caption=[f"{optimal_bucket['bucket_name']} ({optimal_bucket['bucket_size']} m³)"], width=400)
