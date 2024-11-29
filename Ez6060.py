@@ -373,7 +373,7 @@ if calculate_button:
 
             Productivity = f"{(1.1 * total_tonnage_per_hour_new - total_tonnage_per_hour_old) / total_tonnage_per_hour_old * 100:.0f}%"
 
-            st.success(f"Good news! ONTRAC could improve your productivity by up to {Productivity}")
+            st.success(f"Good news! ONTRAC could improve your productivity by up to {Productivity}!")
             st.success(f"Your ONTRAC XMOR® Bucket Solution is the: {optimal_bucket['bucket_name']} ({optimal_bucket['bucket_size']} m³)")
     
             # Side-by-Side Bucket Comparison Data
